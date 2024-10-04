@@ -6,6 +6,8 @@
 # To see all the available ones, please look in the
 # montepython/likelihoods folder. Every folder there is a valid likelihood to
 # test.
+#data.experiments=['sn_pantheonplus']
+#data.experiments=['sn_union3']
 data.experiments=['sn_desy5']
 #data.over_sampling=[1,5,5]
 
@@ -55,6 +57,9 @@ data.N = 10
 # access to disc, but this is not so much time consuming.
 data.write_step = 10
 
+#sn_pantheonplus.use_abs_mag = False
+#sn_union3.use_abs_mag = False
+sn_desy5.use_abs_mag = False
 
 
 #-----------Cosmological-arguments---------

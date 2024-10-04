@@ -1,0 +1,90 @@
+#-----CLASS v3.2.3 (branch: , hash: )-----
+
+#-----CLASS v3.2.0 (branch: , hash: )-----
+
+#-----CLASS v2.7.2 (branch: , hash: )-----
+
+#------Experiments to test (separated with commas)-----
+# To see all the available ones, please look in the
+# montepython/likelihoods folder. Every folder there is a valid likelihood to
+# test.
+#data.experiments=['sn_pantheonplus']
+#data.experiments=['sn_union3']
+data.experiments=['sn_desy5']
+#data.over_sampling=[1,5,5]
+
+#------ Parameter list -------
+# data.parameters[class name] = [mean, min, max, 1-sigma, scale, role]
+# - if min max irrelevant, put to -1 or None (if you want a boundary of -1, use -1.0)
+# - if fixed, put 1-sigma to 0
+# - if scale irrelevant, put to 1, otherwise to the appropriate factor
+# - role is either 'cosmo', 'nuisance' or 'derived'
+
+# Cosmological parameters list
+data.parameters['omega_b']      = [ 2.235,   None, None, 0.1, 0.01, 'cosmo']
+data.parameters['omega_cdm']    = [ 0.120,   None, None, 0.01,    1, 'cosmo']
+data.parameters['h']            = [ 0.675,   None, None, 0.01,    1, 'cosmo']
+data.parameters['ln10^{10}A_s'] = [ 3.044,   None, None, 0.10,    1, 'cosmo']
+data.parameters['n_s']          = [ 0.965,   None, None, 0.01,    1, 'cosmo']
+data.parameters['tau_reio']     = [  0.0543,  None, None,       0.008,    1, 'cosmo']
+
+data.parameters['w0_fld']      = [-1, None, None, 0.05, 1, 'cosmo']
+data.parameters['wa_fld']      = [ 0,  None, None,  0.05, 1., 'cosmo']
+
+data.cosmo_arguments['N_ur'] = 2.0328
+data.cosmo_arguments['N_ncdm'] = 1
+data.cosmo_arguments['m_ncdm'] = 0.06
+data.cosmo_arguments['T_ncdm'] = 0.71611
+
+
+# Derived parameters
+data.parameters['Omega_m']    = [0, None, None, 0,     1,   'derived']
+data.parameters['sigma8']     = [0, None, None, 0,     1,   'derived']
+data.parameters['A_s']        = [0, None, None, 0,     1,   'derived']
+
+data.cosmo_arguments['Omega_Lambda'] = 0
+
+# Other cosmo parameters (fixed parameters, precision parameters, etc.)
+#data.cosmo_arguments['sBBN file'] = data.path['cosmo']+'/bbn/sBBN.dat'
+data.cosmo_arguments['k_pivot'] = 0.05
+
+data.cosmo_arguments['output'] = 'mPk'
+data.cosmo_arguments['P_k_max_h/Mpc'] = 1.
+
+
+#------ Mcmc parameters ----
+# Number of steps taken, by default (overwritten by the -N command)
+data.N = 10
+# Number of accepted steps before writing to file the chain. Larger means less
+# access to disc, but this is not so much time consuming.
+data.write_step = 10
+
+#sn_pantheonplus.use_abs_mag = False
+#sn_union3.use_abs_mag = False
+sn_desy5.use_abs_mag = False
+
+
+#-----------Cosmological-arguments---------
+data.cosmo_arguments.update({'N_ur': 2.0328, 'N_ncdm': 1, 'm_ncdm': 0.06, 'T_ncdm': 0.71611, 'Omega_Lambda': 0, 'k_pivot': 0.05, 'output': 'mPk tCl lCl pCl', 'P_k_max_h/Mpc': 1.0, 'lensing': 'yes', 'l_max_scalars': 2508, 'z_max_pk': 0.57})
+
+
+
+
+
+#-----Likelihood-sn_desy5-----
+sn_desy5.data_directory = '/Users/zhiyulu/Documents/Science/Cosmology_packages/montepython_public/data/sn_desy5'
+sn_desy5.data_file = 'DES-SN5YR_HD.csv'
+sn_desy5.covmat_file = 'covsys_000.txt'
+sn_desy5.use_abs_mag = False
+
+
+#-----------Cosmological-arguments---------
+data.cosmo_arguments.update({'N_ur': 2.0328, 'N_ncdm': 1, 'm_ncdm': 0.06, 'T_ncdm': 0.71611, 'Omega_Lambda': 0, 'k_pivot': 0.05, 'output': 'mPk tCl lCl pCl', 'P_k_max_h/Mpc': 1.0, 'lensing': 'yes', 'l_max_scalars': 2508, 'z_max_pk': 0.57})
+
+
+#--------Default-Configuration------
+data.path['root']	= '/Users/zhiyulu/Documents/Science/Cosmology_packages/montepython_public'
+data.path['MontePython']	= '/Users/zhiyulu/Documents/Science/Cosmology_packages/montepython_public/montepython'
+data.path['data']	= '/Users/zhiyulu/Documents/Science/Cosmology_packages/montepython_public/data'
+data.path['cosmo']	= '/Users/zhiyulu/Documents/Science/Cosmology_packages/CLASS/class_wpwa_chebyshev'
+data.path['clik']	= '/Users/zhiyulu/Documents/Science/Cosmology_data/planck2018/baseline/plc_3.0/hi_l'
