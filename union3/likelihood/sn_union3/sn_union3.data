@@ -1,0 +1,21 @@
+sn_union3.data_directory = os.path.join(data.path['data'], 'sn_union3')
+sn_union3.data_file       = 'lcparam_full.txt'
+sn_union3.covmat_file = 'mag_covmat.txt'
+sn_union3.use_abs_mag = False
+
+
+#sn_union3.pecz = 0
+#sn_union3.intrinsicdisp = 0
+#sn_union3.twoscriptmfit = False
+#sn_union3.scriptmcut = 10.0
+#sn_union3.has_mag_covmat = True
+#sn_union3.has_stretch_covmat = False
+#sn_union3.has_colour_covmat = False
+#sn_union3.has_mag_stretch_covmat = False
+#sn_union3.has_mag_colour_covmat = False
+#sn_union3.has_stretch_colour_covmat = False
+#sn_union3.absdist_file = False
+
+
+
+

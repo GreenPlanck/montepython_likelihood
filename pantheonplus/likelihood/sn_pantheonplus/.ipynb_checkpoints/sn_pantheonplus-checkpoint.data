@@ -1,0 +1,10 @@
+sn_pantheonplus.data_directory = os.path.join(data.path['data'], 'sn_pantheonplus')
+sn_pantheonplus.data_file       = 'Pantheon+SH0ES.dat'
+sn_pantheonplus.covmat_file       = 'Pantheon+SH0ES_STAT+SYS.cov'
+sn_pantheonplus.z_min = 0.01
+sn_pantheonplus.use_abs_mag = False  #sn_pantheonplus.use_nuisance = ['M']
+
+
+
+sn_pantheonplus.conflicting_experiments = ['JLA_simple', 'JLA','Pantheon','Pantheon_Plus_SH0ES']
+

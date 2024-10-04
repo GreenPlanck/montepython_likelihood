@@ -1,0 +1,9 @@
+sn_desy5.data_directory = os.path.join(data.path['data'], 'sn_desy5')
+sn_desy5.data_file       = 'DES-SN5YR_HD.csv'
+sn_desy5.covmat_file = 'covsys_000.txt'
+sn_desy5.use_abs_mag = False
+
+
+
+
+

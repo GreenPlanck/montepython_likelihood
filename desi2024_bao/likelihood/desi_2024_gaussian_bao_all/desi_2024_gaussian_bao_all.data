@@ -1,0 +1,5 @@
+# BAO data
+desi_2024_gaussian_bao_all.data_directory      = data.path['data']
+desi_2024_gaussian_bao_all.data_mean                = 'desi_2024_gaussian_bao_data/mean.txt'
+desi_2024_gaussian_bao_all.data_cov                = 'desi_2024_gaussian_bao_data/cov.txt'
+#DESI_bao.exclude             = ['LRG1','LRG2']
