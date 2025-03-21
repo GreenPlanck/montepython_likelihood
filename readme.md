@@ -1,7 +1,14 @@
 Montepython likelihood for DESI2024-BAO and SN-pantheonplus,union3,desy5
 
 The original likelihood and data can be found in cobaya
+
+```
 https://github.com/CobayaSampler/cobaya/blob/master/cobaya/likelihoods/sn/pantheonplus.py
+
+https://github.com/CobayaSampler/bao_data/tree/master
+```
+
+
 
 ## Usage
 
@@ -120,7 +127,6 @@ as well as these papers
     year = "2025"
 }
 ```
-
 
 
 
