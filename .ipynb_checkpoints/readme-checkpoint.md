@@ -12,17 +12,12 @@ https://github.com/CobayaSampler/bao_data/tree/master
 
 ## Usage
 
-If you want to specify the tracers included in your analysis, you can do the setting like
-
-```
-desi_2024_gaussian_bao_all.exclude = ['LRG1','LRG2']
-```
-
-By default, we include all the tracers.
+specify desi_2024_gaussian_bao_all.exclude = [] in input.param when using
+or desi_2024_gaussian_bao_all.exclude = ['LRG1','LRG2']...
 
 ## Bibtex
 
-We would appreciate it if you cite our work
+If you use this code, please cite our work,
 
 ```
 @article{Lu:2025gki,
@@ -36,7 +31,7 @@ We would appreciate it if you cite our work
 }
 ```
 
-If you use this code please cite following papers.
+as well as these papers
 
 ```
 
