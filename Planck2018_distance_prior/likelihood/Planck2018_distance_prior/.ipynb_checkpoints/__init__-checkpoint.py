@@ -31,8 +31,9 @@ class Planck2018_distance_prior(Likelihood):
                         self.error = np.append(self.error, float(this_line[2]))
                     else:
                         self.deleted_index = np.append(self.deleted_index, index)
-                        print('--------------------',self.deleted_index)
-          
+                        
+        print('--------------------')
+        print(f'You have used {self.type} from planck likelihood')
         self.corre = np.loadtxt(os.path.join(self.data_directory, self.data_correlation_matrix))
         if self.deleted_index.size!=0:
             self.corre = np.delete(self.corre, self.deleted_index, axis=0)
