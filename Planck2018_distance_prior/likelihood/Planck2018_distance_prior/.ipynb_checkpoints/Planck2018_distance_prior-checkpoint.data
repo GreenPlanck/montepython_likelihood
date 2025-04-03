@@ -1,0 +1,4 @@
+Planck2018_distance_prior.data_directory      = data.path['data']
+Planck2018_distance_prior.data_file                = 'Planck2018_distance_prior/data.txt'
+Planck2018_distance_prior.data_correlation_matrix                = 'Planck2018_distance_prior/correlation_matrix.txt'
+Planck2018_distance_prior.exclude             = []
