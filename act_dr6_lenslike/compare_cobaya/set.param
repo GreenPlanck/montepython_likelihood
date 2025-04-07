@@ -1,0 +1,39 @@
+#------Experiments to test (separated with commas)-----
+# To see all the available ones, please look in the
+# montepython/likelihoods folder. Every folder there is a valid likelihood to
+# test.
+data.experiments=['act_dr6_lenslike']
+
+
+
+#------ Parameter list -------
+# data.parameters[class name] = [mean, min, max, 1-sigma, scale, role]
+# - if min max irrelevant, put to -1 or None (if you want a boundary of -1, use -1.0)
+# - if fixed, put 1-sigma to 0
+# - if scale irrelevant, put to 1, otherwise to the appropriate factor
+# - role is either 'cosmo', 'nuisance' or 'derived'
+
+
+# Cosmological parameters list
+data.parameters['omega_b'] 	= [0.02235, 0.017, 0.027, 0.0002,  1, 'cosmo']
+data.parameters['omega_cdm'] 	= [0.120,  0.09,  0.15,  0.002,  1, 'cosmo']
+data.parameters['n_s']       	= [ 0.965,   0.9,   1.1,  0.005,  1, 'cosmo']
+data.parameters['ln10^{10}A_s'] = [ 3.044,   2.7,   3.4,   0.02,  1, 'cosmo']
+data.parameters['tau_reio']    	= [ 0.0543,  0.01,  0.17,  0.008,  1, 'cosmo']
+data.parameters['h']  = [0.675,  None,None,0.01,  1, 'cosmo']
+
+
+# CLASS parameters
+data.cosmo_arguments['N_ur'] = 2.0328
+data.cosmo_arguments['N_ncdm'] = 1
+data.cosmo_arguments['m_ncdm'] = 0.06
+data.cosmo_arguments['T_ncdm'] = 0.71611
+data.cosmo_arguments['output'] = 'tCl,pCl,lCl,mPk'
+data.cosmo_arguments['lensing'] = 'y'
+data.cosmo_arguments['non_linear'] = 'hmcode'
+data.cosmo_arguments['nonlinear_min_k_max'] = 20
+#data.cosmo_arguments['l_max_scalars'] = 4000
+
+
+
+#data.parameters['A_planck']  = [1.,  None, None, 0.0003,  1, 'nuisance']

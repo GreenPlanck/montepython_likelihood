@@ -1,0 +1,3 @@
+act_dr6_lenslike.data_directory = data.path['data']
+act_dr6_lenslike.dataset_file           = 'planck_PR4_lensing/data_pr4/pp_consext8_npipe_smicaed_TiPi_jTP_pre30T_kfilt_rdn0cov_PS1.dataset'
+act_dr6_lenslike.use_nuisance = []

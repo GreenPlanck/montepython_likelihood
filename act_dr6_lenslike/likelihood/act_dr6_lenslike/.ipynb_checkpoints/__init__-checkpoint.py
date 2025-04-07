@@ -1,7 +1,10 @@
+# https://github.com/CobayaSampler/cobaya/blob/master/cobaya/likelihoods/sn/pantheonplus.py
 import os
 import numpy as np
 from montepython.likelihood_class import Likelihood
-
+import montepython.io_mp as io_mp
+import warnings
+_twopi = 2 * np.pi
 
 import planckpr4lensing
 #self.pr4 = planckpr4lensing.planckpr4lensing.PlanckPR4Lensing()
@@ -23,7 +26,7 @@ def chi_squared(c_inv, delta):
                                        x=delta, lower=0).dot(delta)
     
 
-class planck_PR4_lensing(Likelihood,planckpr4lensing.planckpr4lensing.PlanckPR4Lensing):
+class act_dr6_lenslike(Likelihood,planckpr4lensing.planckpr4lensing.PlanckPR4Lensing):
 
     _fast_chi_squared = staticmethod(chi_squared)
 
