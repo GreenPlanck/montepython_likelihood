@@ -1,0 +1,3 @@
+planck_PR4_lensing.data_directory = data.path['data']
+planck_PR4_lensing.dataset_file           = 'planck_PR4_lensing/data_pr4/pp_consext8_npipe_smicaed_TiPi_jTP_pre30T_kfilt_rdn0cov_PS1.dataset'
+planck_PR4_lensing.use_nuisance = ['A_planck']

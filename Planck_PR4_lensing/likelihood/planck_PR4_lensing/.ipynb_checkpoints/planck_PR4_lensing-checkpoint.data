@@ -1,0 +1,4 @@
+planck_PR4_lensing.data_directory = ''
+planck_PR4_lensing.file           = ''
+
+planck_PR4_lensing.use_nuisance = ['A_planck']
