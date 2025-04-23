@@ -8,16 +8,19 @@ https://github.com/CobayaSampler/cobaya/blob/master/cobaya/likelihoods/sn/panthe
 https://github.com/CobayaSampler/bao_data/tree/master
 ```
 
-
-
 ## Usage
 
-specify desi_2024_gaussian_bao_all.exclude = [] in input.param when using
-or desi_2024_gaussian_bao_all.exclude = ['LRG1','LRG2']...
+If you want to specify the tracers included in your analysis, you can do the setting like
+
+```
+desi_2024_gaussian_bao_all.exclude = ['LRG1','LRG2']
+```
+
+By default, we include all the tracers.
 
 ## Bibtex
 
-If you use this code, please cite our work,
+We would appreciate it if you cite our work
 
 ```
 @article{Lu:2025gki,
@@ -31,10 +34,9 @@ If you use this code, please cite our work,
 }
 ```
 
-as well as these papers
+If you use this code please cite following papers.
 
 ```
-
 @article{Torrado:2020dgo,
     author = "Torrado, Jesus and Lewis, Antony",
     title = "{Cobaya: Code for Bayesian Analysis of hierarchical physical models}",
@@ -76,6 +78,11 @@ as well as these papers
       SLACcitation   = "%%CITATION = ARXIV:1210.7183;%%",
 }
 
+```
+
+**DESYSN**
+
+```
 @article{DES:2024tys,
     author = "Abbott, T. M. C. and others",
     collaboration = "DES",
@@ -87,7 +94,11 @@ as well as these papers
     month = "1",
     year = "2024"
 }
+```
 
+**PanPlusSN**
+
+```
 @article{Brout:2022vxf,
     author = "Brout, Dillon and others",
     title = "{The Pantheon+ Analysis: Cosmological Constraints}",
@@ -101,7 +112,11 @@ as well as these papers
     pages = "110",
     year = "2022"
 }
+```
 
+**Union3SN**
+
+```
 @article{Rubin:2023ovl,
     author = "Rubin, David and others",
     title = "{Union Through UNITY: Cosmology with 2,000 SNe Using a Unified Bayesian Framework}",
@@ -111,7 +126,11 @@ as well as these papers
     month = "11",
     year = "2023"
 }
+```
 
+**DESIBAO**
+
+```
 @article{DESI:2024mwx,
     author = "Adame, A. G. and others",
     collaboration = "DESI",
@@ -126,9 +145,88 @@ as well as these papers
     pages = "021",
     year = "2025"
 }
+
+@article{DESI:2025zgx,
+    author = "Abdul Karim, M. and others",
+    collaboration = "DESI",
+    title = "{DESI DR2 Results II: Measurements of Baryon Acoustic Oscillations and Cosmological Constraints}",
+    eprint = "2503.14738",
+    archivePrefix = "arXiv",
+    primaryClass = "astro-ph.CO",
+    reportNumber = "FERMILAB-PUB-25-0169-PPD",
+    month = "3",
+    year = "2025"
+}
 ```
 
+**planck_pr4_lensing**
 
+```
+@article{Carron:2022eyg,
+    author = "Carron, Julien and Mirmelstein, Mark and Lewis, Antony",
+    title = "{CMB lensing from Planck PR4~maps}",
+    eprint = "2206.07773",
+    archivePrefix = "arXiv",
+    primaryClass = "astro-ph.CO",
+    doi = "10.1088/1475-7516/2022/09/039",
+    journal = "JCAP",
+    volume = "09",
+    pages = "039",
+    year = "2022"
+}
+```
 
+**planck_pr4_iswlensing**
 
+```
+@article{Carron:2022eum,
+    author = "Carron, Julien and Lewis, Antony and Fabbian, Giulio",
+    title = "{Planck integrated Sachs-Wolfe-lensing likelihood and the CMB temperature}",
+    eprint = "2209.07395",
+    archivePrefix = "arXiv",
+    primaryClass = "astro-ph.CO",
+    doi = "10.1103/PhysRevD.106.103507",
+    journal = "Phys. Rev. D",
+    volume = "106",
+    number = "10",
+    pages = "103507",
+    year = "2022"
+}
+```
+
+act_dr6_lensing
+
+```
+@article{ACT:2023kun,
+    author = "Madhavacheril, Mathew S. and others",
+    collaboration = "ACT",
+    title = "{The Atacama Cosmology Telescope: DR6 Gravitational Lensing Map and Cosmological Parameters}",
+    eprint = "2304.05203",
+    archivePrefix = "arXiv",
+    primaryClass = "astro-ph.CO",
+    reportNumber = "FERMILAB-PUB-23-206-PPD",
+    doi = "10.3847/1538-4357/acff5f",
+    journal = "Astrophys. J.",
+    volume = "962",
+    number = "2",
+    pages = "113",
+    year = "2024"
+}
+
+@article{ACT:2023dou,
+    author = "Qu, Frank J. and others",
+    collaboration = "ACT",
+    title = "{The Atacama Cosmology Telescope: A Measurement of the DR6 CMB Lensing Power Spectrum and Its Implications for Structure Growth}",
+    eprint = "2304.05202",
+    archivePrefix = "arXiv",
+    primaryClass = "astro-ph.CO",
+    reportNumber = "FERMILAB-PUB-23-237-PPD, FERMILAB-PUB-23-237-PPD",
+    doi = "10.3847/1538-4357/acfe06",
+    journal = "Astrophys. J.",
+    volume = "962",
+    number = "2",
+    pages = "112",
+    year = "2024"
+}
+```
 
