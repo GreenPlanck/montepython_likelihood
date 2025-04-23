@@ -30,8 +30,18 @@ class planck_PR4_lensing(Likelihood,planckpr4lensing.planckpr4lensing.PlanckPR4L
     def __init__(self, path, data, command_line):
         Likelihood.__init__(self, path, data, command_line)
 
-        planckpr4lensing.planckpr4lensing.PlanckPR4Lensing.__init__(self,{'dataset_file': os.path.join(self.data_directory, self.dataset_file)})
-
+        valid_config = False
+        if self.marg==True: 
+            if 'A_planck' not in self.use_nuisance and 'marg' in self.dataset_file:
+                valid_config = True
+        elif self.marg==False:
+            if 'A_planck' in self.use_nuisance and 'marg' not in self.dataset_file:
+                valid_config = True
+            
+        if valid_config:
+            planckpr4lensing.planckpr4lensing.PlanckPR4Lensing.__init__(self,{'dataset_file': os.path.join(self.data_directory, self.dataset_file)})
+        else:
+            raise ValueError("Your configuration is incorrect. Either set marglike and Aplanck in the same time or use the wrong dataset")
         print("initial finished")
         print("=================")
 
@@ -93,7 +103,7 @@ class planck_PR4_lensing(Likelihood,planckpr4lensing.planckpr4lensing.PlanckPR4L
             if mode == 'pp': dls[mode][cls['ell']] = (cls['ell'] * (cls['ell']+1))**2 / (2*np.pi)*cls[mode]
             elif mode == 'tp' or mode == 'ep': dls[mode][cls['ell']] = (cls['ell'] * (cls['ell']+1))**(3./2.) / (2*np.pi)*cls[mode]
             else: dls[mode][cls['ell']] = fac*cls[mode]
-        data_params = {par:data.mcmc_parameters[par]['current'] for par in data.get_mcmc_parameters(['nuisance'])}
+        data_params = {par:data.mcmc_parameters[par]['current']*data.mcmc_parameters[par]['scale'] for par in data.get_mcmc_parameters(['nuisance'])}
         self.get_theory_map_cls(dls, data_params)
         C = np.empty((self.nmaps, self.nmaps))
         big_x = np.empty(self.nbins_used * self.ncl_used)

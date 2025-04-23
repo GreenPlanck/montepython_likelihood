@@ -11,7 +11,7 @@ root_path="/Users/zhiyulu/Documents/Github/montepython_likelihood/Planck_PR4_len
 cd $root_path
 
 fold_name="compare_cobaya"
-file_name="set"
+file_name="marg"
 
 echo "Current working directory: $(pwd)"
 

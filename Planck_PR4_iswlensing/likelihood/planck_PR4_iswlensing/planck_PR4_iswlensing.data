@@ -1,0 +1,5 @@
+
+planck_PR4_iswlensing.type='tt_pt_mtt'
+#planck_PR4_iswlensing.type='tt_pt_pp_mtt_mpp'
+
+#planck_PR4_iswlensing.use_nuisance=['A_planck'] looks like ISWlensing doesn't read the nuisance parameter

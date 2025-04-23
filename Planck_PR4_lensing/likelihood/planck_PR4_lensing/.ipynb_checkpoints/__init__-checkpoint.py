@@ -1,123 +1,50 @@
-# https://github.com/CobayaSampler/cobaya/blob/master/cobaya/likelihoods/sn/pantheonplus.py
 import os
 import numpy as np
 from montepython.likelihood_class import Likelihood
-import montepython.io_mp as io_mp
-import warnings
-_twopi = 2 * np.pi
 
-class planck_PR4_lensing(Likelihood):
+
+import planckpr4lensing
+#self.pr4 = planckpr4lensing.planckpr4lensing.PlanckPR4Lensing()
+
+def chi_squared(c_inv, delta):
+    """
+    Compute chi squared, i.e. delta.T @ c_inv @ delta
+
+    :param c_inv: symmetric positive definite inverse covariance matrix
+    :param delta: 1D array
+    :return: delta.T @ c_inv @ delta
+    """
+    if len(delta) < 1500:
+        return c_inv.dot(delta).dot(delta)
+    else:
+        # use symmetry
+        return scipy.linalg.blas.dsymv(alpha=1.0,
+                                       a=c_inv if np.isfortran(c_inv) else c_inv.T,
+                                       x=delta, lower=0).dot(delta)
+    
+
+class planck_PR4_lensing(Likelihood,planckpr4lensing.planckpr4lensing.PlanckPR4Lensing):
+
+    _fast_chi_squared = staticmethod(chi_squared)
 
     def __init__(self, path, data, command_line):
         Likelihood.__init__(self, path, data, command_line)
-        self._read_data_file(os.path.join(self.data_directory, self.data_file))
-        self.covs = {}
-        for name in ['mag']:
-            #self.log.debug('Reading covmat for: %s ' % name)
-            self.covs[name] = self._read_covmat(
-                os.path.join(self.data_directory, self.covmat_file))
-        self.alphabeta_covmat = False
-        self.configure()
-        self.inverse_covariance_matrix()
-        if not self.use_abs_mag:
-            self._marginalize_abs_mag()
-        self.marginalize = False
 
-    def _apply_mask(self, zmask):
-        for col in self.cols:
-            setattr(self, col, getattr(self, col)[zmask])
-        for name, cov in self.covs.items():
-            self.covs[name] = cov[np.ix_(zmask, zmask)]
-
-
-    def configure(self):
-        self.pre_vars = self.mag_err ** 2
-
-    def _read_cols(self, data_file, file_cols, sep=None):
-        #self.log.debug('Reading %s' % data_file)
-        with open(data_file, 'r') as f:
-            lines = f.readlines()
-            line = lines[0]
-            if line.startswith('#'):
-                line = line[1:]
-            cols = [col.strip().lower() for col in line.split(sep)]
-            assert cols[0].isalpha()
-            indices = [cols.index(col) for col in file_cols]
-            zeros = np.zeros(len(lines) - 1)
-            for col in self.cols:
-                setattr(self, col, zeros.astype(dtype='f8', copy=True))
-            for ix, line in enumerate(lines[1:]):
-                vals = [val.strip() for val in line.split(sep)]
-                vals = [vals[i] for i in indices]
-                for i, (col, val) in enumerate(zip(self.cols, vals)):
-                    tmp = getattr(self, col)
-                    tmp[ix] = np.asarray(val, dtype=tmp.dtype)
-        self.nsn = ix + 1
-        print('Number of SN read: %s ' % self.nsn)
-        #self.log.debug('Number of SN read: %s ' % self.nsn)
-    
-
-    def _read_data_file(self, data_file):
-        file_cols = ['zhd', 'zhel', 'mu', 'muerr_final']
-        self.cols = ['zcmb', 'zhel', 'mag', 'mag_err']
-        self._read_cols(data_file, file_cols, sep=',')
-
-    def _read_covmat(self, filename):
-        cov = np.loadtxt(filename)
-        if np.isscalar(cov[0]) and cov[0] ** 2 + 1 == len(cov):
-            cov = cov[1:]
-        return cov.reshape((self.nsn, self.nsn))
-
-
-    def inverse_covariance_matrix(self, alpha=0, beta=0):
-        if 'mag' in self.covs:
-            invcovmat = self.covs['mag'].copy()
+        valid_config = False
+        if self.marg==True: 
+            if 'A_planck' not in self.use_nuisance and 'marg' in self.dataset_file:
+                valid_config = True
+        elif self.marg==False:
+            if 'A_planck' in self.use_nuisance and 'marg' not in self.dataset_file:
+                valid_config = True
+            
+        if valid_config:
+            planckpr4lensing.planckpr4lensing.PlanckPR4Lensing.__init__(self,{'dataset_file': os.path.join(self.data_directory, self.dataset_file)})
         else:
-            invcovmat = 0
-        if self.alphabeta_covmat:
-            if np.isclose(alpha, self._last_alpha) and np.isclose(beta, self._last_beta):
-                return self.invcov
-            self._last_alpha = alpha
-            self._last_beta = beta
-            alphasq = alpha * alpha
-            betasq = beta * beta
-            alphabeta = alpha * beta
-            if 'stretch' in self.covs:
-                invcovmat += alphasq * self.covs['stretch']
-            if 'colour' in self.covs:
-                invcovmat += betasq * self.covs['colour']
-            if 'mag_stretch' in self.covs:
-                invcovmat += 2 * alpha * self.covs['mag_stretch']
-            if 'mag_colour' in self.covs:
-                invcovmat -= 2 * beta * self.covs['mag_colour']
-            if 'stretch_colour' in self.covs:
-                invcovmat -= 2 * alphabeta * self.covs['stretch_colour']
-            delta = (self.pre_vars + alphasq * self.stretch_var +
-                     betasq * self.colour_var + 2.0 * alpha * self.cov_mag_stretch +
-                     -2.0 * beta * self.cov_mag_colour +
-                     -2.0 * alphabeta * self.cov_stretch_colour)
-        else:
-            delta = self.pre_vars
-        np.fill_diagonal(invcovmat, invcovmat.diagonal() + delta)
-        self.invcov = np.linalg.inv(invcovmat)
-        return self.invcov
+            raise ValueError("Your configuration is incorrect. Either set marglike and Aplanck in the same time or use the wrong dataset")
+        print("initial finished")
+        print("=================")
 
-
-    def _marginalize_abs_mag(self):
-        deriv = np.ones_like(self.mag)[:, None]
-        derivp = self.invcov.dot(deriv)
-        fisher = deriv.T.dot(derivp)
-        self.invcov = self.invcov - derivp.dot(np.linalg.solve(fisher, derivp.T))
-
-
-
-    def alpha_beta_logp(self, lumdists, Mb=0., **kwargs):
-        if self.use_abs_mag:
-            estimated_scriptm = Mb + 25
-        else:
-            estimated_scriptm = 0.
-        diffmag = self.mag - lumdists - estimated_scriptm
-        return - diffmag.dot(self.invcov).dot(diffmag) / 2.
 
 
     def get_theory_map_cls(self, Cls, data_params=None):
@@ -131,8 +58,35 @@ class planck_PR4_lensing(Likelihood):
                 else:
                     CL.CL[:] = 0
         self.adapt_theory_for_maps(self.map_cls, data_params or {})
-        
 
+    def adapt_theory_for_maps(self, cls, data_params):
+        if self.aberration_coeff:
+            self.add_aberration(cls)
+        self.add_foregrounds(cls, data_params)
+        if self.calibration_param is not None and self.calibration_param in data_params:
+            for i in range(self.nmaps_required):
+                for j in range(i + 1):
+                    CL = cls[i, j]
+                    if CL is not None:
+                        if CL.theory_ij[0] <= 2 and CL.theory_ij[1] <= 2:
+                            CL.CL /= data_params[self.calibration_param] ** 2
+
+    def add_foregrounds(self, cls, data_params):
+        pass
+
+
+    def elements_to_matrix(self, X, M):
+        ix = 0
+        for i in range(self.nmaps):
+            M[i, 0:i] = X[ix:ix + i]
+            M[0:i, i] = X[ix:ix + i]
+            ix += i
+            M[i, i] = X[ix]
+            ix += 1
+
+
+
+    # noinspection PyUnboundLocalVariable
     def loglkl(self, cosmo, data):
         r"""
         Get log likelihood from the dls (CMB C_l scaled by L(L+1)/2\pi)
@@ -141,6 +95,15 @@ class planck_PR4_lensing(Likelihood):
         :param data_params: likelihood nuisance parameters
         :return: log likelihood
         """
+        cls = self.get_cl(cosmo)
+        fac = cls['ell'] * (cls['ell']+1) / (2*np.pi)
+        cmb_typ = ['tt','te','ee','pp','tp','bb']
+        dls = {mode:np.zeros_like(fac) for mode in cmb_typ}
+        for mode in cmb_typ:
+            if mode == 'pp': dls[mode][cls['ell']] = (cls['ell'] * (cls['ell']+1))**2 / (2*np.pi)*cls[mode]
+            elif mode == 'tp' or mode == 'ep': dls[mode][cls['ell']] = (cls['ell'] * (cls['ell']+1))**(3./2.) / (2*np.pi)*cls[mode]
+            else: dls[mode][cls['ell']] = fac*cls[mode]
+        data_params = {par:data.mcmc_parameters[par]['current']*data.mcmc_parameters[par]['scale'] for par in data.get_mcmc_parameters(['nuisance'])}
         self.get_theory_map_cls(dls, data_params)
         C = np.empty((self.nmaps, self.nmaps))
         big_x = np.empty(self.nbins_used * self.ncl_used)
@@ -185,4 +148,25 @@ class planck_PR4_lensing(Likelihood):
             return -0.5 * chisq
         return -0.5 * self._fast_chi_squared(self.covinv, big_x)
 
-
+    @staticmethod
+    def transform(C, Chat, Cfhalf):
+        # HL transformation of the matrices
+        if C.shape[0] == 1:
+            rat = Chat[0, 0] / C[0, 0]
+            C[0, 0] = (np.sign(rat - 1) *
+                       np.sqrt(2 * np.maximum(0, rat - np.log(rat) - 1)) *
+                       Cfhalf[0, 0] ** 2)
+            return
+        diag, U = np.linalg.eigh(C)
+        rot = U.T.dot(Chat).dot(U)
+        roots = np.sqrt(diag)
+        for i, root in enumerate(roots):
+            rot[i, :] /= root
+            rot[:, i] /= root
+        U.dot(rot.dot(U.T), rot)
+        diag, rot = np.linalg.eigh(rot)
+        diag = np.sign(diag - 1) * np.sqrt(2 * np.maximum(0, diag - np.log(diag) - 1))
+        Cfhalf.dot(rot, U)
+        for i, d in enumerate(diag):
+            rot[:, i] = U[:, i] * d
+        rot.dot(U.T, C)

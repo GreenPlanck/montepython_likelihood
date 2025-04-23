@@ -35,3 +35,7 @@ data.cosmo_arguments['nonlinear_min_k_max'] = 20
 
 
 data.parameters['A_planck']  = [1.,  None, None, 0.0003,  1, 'nuisance']
+
+planck_PR4_lensing.marg=False
+planck_PR4_lensing.use_nuisance=['A_planck']
+planck_PR4_lensing.dataset_file           = 'planck_PR4_lensing/data_pr4/pp_consext8_npipe_smicaed_TiPi_jTP_pre30T_kfilt_rdn0cov_PS1.dataset'
