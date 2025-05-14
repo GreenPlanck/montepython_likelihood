@@ -1,14 +1,16 @@
 theory:
   camb:
+    ignore_obsolete: True
     extra_args:
-      lens_potential_accuracy: 1
+      lens_potential_accuracy: 1.
       num_massive_neutrinos: 1.
-      nnu: 3.044
-      nonlinear: y
+      nnu: 3.046
+      #AccuracyBoost: 3
+      #nonlinear: y
 
 
 likelihood:
-  planckpr4lensing.planckpr4iswlensing.ISWLensingTT: null
+  planckpr4lensing.planckpr4iswlensing.ISWLensingTTPP: null
 params:
   logA:
     prior:

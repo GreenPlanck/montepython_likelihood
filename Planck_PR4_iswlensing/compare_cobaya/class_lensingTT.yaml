@@ -15,13 +15,16 @@ likelihood:
 theory:
   classy:
     extra_args:
-      non linear: halofit #hmcode
-      nonlinear_min_k_max: 1.2
-      N_ncdm: 1
-      N_ur: 2.0328
-      #m_ncdm: 0.06
-      T_ncdm: 0.71611
-      output: 'tCl,pCl,lCl'
+        non linear: hmcode
+        #nonlinear_min_k_max: 20
+        N_ncdm: 1
+        N_ur: 2.0328
+        #m_ncdm: 0.06
+        T_ncdm: 0.71611
+        output: 'tCl,pCl,lCl'
+        
+        
+        
       
 
 params:
