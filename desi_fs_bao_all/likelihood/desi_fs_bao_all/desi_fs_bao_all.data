@@ -1,0 +1,3 @@
+desi_fs_bao_all.use_nuisance = []
+desi_fs_bao_all.observable_name = []
+desi_fs_bao_all.data_dir = None
