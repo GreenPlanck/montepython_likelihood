@@ -110,6 +110,7 @@ class desi_fs_bao_all(Likelihood):
         )
         print(class_args)
         self.need_cosmo_arguments(data, class_args)
+        self.first_evaluation = True
       
     def get_requirements(self):
         """Return dictionary specifying quantities calculated by a theory code are needed."""
@@ -145,8 +146,10 @@ class desi_fs_bao_all(Likelihood):
         and return a log-likelihood.
         """
         self.cosmo=cosmo
-        self.theory.calculate(state={},cosmo=self.cosmo)
-        
+        if self.first_evaluation or data.need_cosmo_update: 
+            self.theory.calculate(state={},cosmo=self.cosmo)
+            self.first_evaluation = False
+            
         params_values={par:data.mcmc_parameters[par]['current']*data.mcmc_parameters[par]['scale'] for par in data.get_mcmc_parameters(['nuisance'])}
         
         logp = 0.
