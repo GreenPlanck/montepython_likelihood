@@ -147,6 +147,10 @@ class desi_fs_bao_all(Likelihood):
         """
         self.cosmo=cosmo
         if self.first_evaluation or data.need_cosmo_update: 
+            data.update_cosmo_arguments()
+            self.cosmo.set(data.cosmo_arguments)
+            self.cosmo.compute()
+            
             self.theory.calculate(state={},cosmo=self.cosmo)
             self.first_evaluation = False
             

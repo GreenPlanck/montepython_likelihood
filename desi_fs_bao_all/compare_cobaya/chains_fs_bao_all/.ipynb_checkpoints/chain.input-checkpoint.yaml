@@ -1,0 +1,38 @@
+theory:
+  camb:
+    extra_args:
+      bbn_predictor: PArthENoPE_880.2_standard.dat
+      dark_energy_model: ppf
+      num_massive_neutrinos: 1
+      AccuracyBoost: 3
+      lAccuracyBoost: 3
+      lSampleBoost: 3
+    speed: 2
+  fs_bao_likelihoods.reptvelocileptors:
+    python_path: /Users/zhiyulu/Documents/Science/Cosmology_packages/LSS/desi-kp-cosmological-likelihoods-main/dr1
+likelihood:
+  fs_bao_likelihoods.desi_fs_bao_all:
+    python_path: /Users/zhiyulu/Documents/Science/Cosmology_packages/LSS/desi-kp-cosmological-likelihoods-main/dr1
+    data_dir: /Users/zhiyulu/Documents/Science/Cosmology_packages/LSS/desi-kp-cosmological-likelihoods-main/dr1/fs_bao_likelihoods/data/likelihood
+params:
+  H0: 68.5
+  omegam: 0.304158
+  ombh2: 0.0189629
+  logA: 3.0
+  ns: 0.96
+  mnu: 0.06
+  omch2:
+    value: 'lambda omegam, ombh2, H0: omegam*(H0/100)**2 - ombh2'
+    latex: \Omega_\mathrm{c} h^2
+  As:
+    value: 'lambda logA: 1e-10*np.exp(logA)'
+    latex: A_\mathrm{s}
+sampler:
+  mcmc:
+    covmat: chain.covmat
+    learn_proposal: true
+    Rminus1_stop: 0.01
+    Rminus1_cl_stop: 0.2
+    max_tries: 10000
+output: chain
+stop_at_error: true

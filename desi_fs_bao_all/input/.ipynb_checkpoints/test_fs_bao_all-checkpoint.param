@@ -1,0 +1,76 @@
+data.experiments = ['desi_fs_bao_all']
+data.over_sampling=[1, 5]
+
+
+data.parameters['omega_b'] = [0.0189629, None, None, 0.005, 1, 'cosmo']
+data.parameters['omega_cdm'] = [0.12375563755, None, None, 0.05, 1, 'cosmo']
+data.parameters['H0'] = [68.5, None, None, 0.1, 1, 'cosmo']
+data.parameters['ln10^{10}A_s'] = [3.0, None, None, 0.05, 1, 'cosmo']
+data.parameters['n_s'] = [0.96, None, None, 0.05, 1, 'cosmo']
+
+
+# -----------------------------------------------------------------------------
+# nuisance parameters
+# -----------------------------------------------------------------------------
+
+data.parameters['pre_QSO_z0_b1p'] = [0.780983, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_QSO_z0_b2p'] = [0.353843, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_QSO_z0_bsp'] = [0.135725, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_QSO_z0_b3p'] = [0.0, None, None, 0, 1, 'nuisance']
+
+data.parameters['pre_ELG_z1_b1p'] = [0.127936, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_ELG_z1_b2p'] = [-0.578801, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_ELG_z1_bsp'] = [-1.45356, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_ELG_z1_b3p'] = [0.0, None, None, 0, 1, 'nuisance']
+
+data.parameters['pre_LRG_z2_b1p'] = [1.04564, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_LRG_z2_b2p'] = [-0.493139, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_LRG_z2_bsp'] = [-0.24021, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_LRG_z2_b3p'] = [0.0, None, None, 0, 1, 'nuisance']
+
+data.parameters['pre_LRG_z1_b1p'] = [1.22446, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_LRG_z1_b2p'] = [-0.671727, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_LRG_z1_bsp'] = [-0.22624, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_LRG_z1_b3p'] = [0.0, None, None, 0, 1, 'nuisance']
+
+data.parameters['pre_LRG_z0_b1p'] = [1.1351, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_LRG_z0_b2p'] = [-0.139101, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_LRG_z0_bsp'] = [-0.910397, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_LRG_z0_b3p'] = [0.0, None, None, 0, 1, 'nuisance']
+
+data.parameters['pre_BGS_z0_b1p'] = [1.11348, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_BGS_z0_b2p'] = [0.660148, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_BGS_z0_bsp'] = [-0.223088, None, None, 0.05, 1, 'nuisance']
+data.parameters['pre_BGS_z0_b3p'] = [0.0, None, None, 0, 1, 'nuisance']
+
+
+# Chosen to match both CAMB N_eff and omega_nu conventions.
+data.cosmo_arguments['N_ur'] = 2.0293333333333337
+data.cosmo_arguments['N_ncdm'] = 1
+data.cosmo_arguments['m_ncdm'] = 0.06
+data.cosmo_arguments['T_ncdm'] = 0.7163716894894964
+data.cosmo_arguments['deg_ncdm'] = 0.9999868067779789
+
+# CAMB PArthENoPE prediction at this fixed omega_b and N_eff.
+data.cosmo_arguments['recombination'] = 'recfast'
+
+# CLASS products needed by the full-shape theory calculation.
+data.cosmo_arguments['output'] = 'mPk,mTk'
+data.cosmo_arguments['P_k_max_1/Mpc'] = 100.0
+data.cosmo_arguments['z_max_pk'] = 4.2
+
+
+
+# Minimal fixed-point evaluation.
+data.N = 1
+data.write_step = 1
+
+
+
+desi_fs_bao_all.data_dir = '/Users/zhiyulu/Documents/Science/Cosmology_packages/LSS/desi-kp-cosmological-likelihoods-main/dr1/fs_bao_likelihoods/data/likelihood'
+desi_fs_bao_all.observable_name = 'spectrum-poles-rotated+bao-recon'
+desi_fs_bao_all.tracers = ['bgs_z0', 'lrg_z0', 'lrg_z1', 'lrg_z2', 'elg_z1', 'qso_z0', 'lya_z0']
+desi_fs_bao_all.solve = 'marg'
+
+desi_fs_bao_all.use_nuisance = ['pre_QSO_z0_b1p', 'pre_QSO_z0_b2p', 'pre_QSO_z0_bsp', 'pre_QSO_z0_b3p','pre_ELG_z1_b1p', 'pre_ELG_z1_b2p', 'pre_ELG_z1_bsp', 'pre_ELG_z1_b3p','pre_LRG_z2_b1p', 'pre_LRG_z2_b2p', 'pre_LRG_z2_bsp', 'pre_LRG_z2_b3p','pre_LRG_z1_b1p', 'pre_LRG_z1_b2p', 'pre_LRG_z1_bsp', 'pre_LRG_z1_b3p','pre_LRG_z0_b1p', 'pre_LRG_z0_b2p', 'pre_LRG_z0_bsp', 'pre_LRG_z0_b3p','pre_BGS_z0_b1p', 'pre_BGS_z0_b2p', 'pre_BGS_z0_bsp', 'pre_BGS_z0_b3p']
+

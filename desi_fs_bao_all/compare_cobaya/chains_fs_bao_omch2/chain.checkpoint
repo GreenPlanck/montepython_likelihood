@@ -1,0 +1,6 @@
+sampler:
+  mcmc:
+    converged: true
+    Rminus1_last: !!float 'np.float64(0.029307616742075875)'
+    burn_in: 0
+    mpi_size: 4
